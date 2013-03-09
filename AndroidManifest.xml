@@ -22,6 +22,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.dvcs.gilbertcleanup.IssueListActivity"
+            android:label="@string/title_issue_list" >
+        </activity>
+        <activity
+            android:name="com.dvcs.gilbertcleanup.IssueDetailActivity"
+            android:label="@string/title_issue_detail"
+            android:parentActivityName=".IssueListActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".IssueListActivity" />
+        </activity>
     </application>
 
 </manifest>
