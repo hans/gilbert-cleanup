@@ -1,5 +1,7 @@
 package com.dvcs.gilbertcleanup;
 
+import java.net.URL;
+
 import com.vividsolutions.jts.geom.Coordinate;
 
 public class Issue {
@@ -7,16 +9,19 @@ public class Issue {
 	private String title;
 	private String description;
 	private String reporterId;
+	private URL[] pictureUrls;
 	private Coordinate location;
 	private int key;
 	private long time;
 	private int urgency;
 	
 	public Issue(String title, String description, String reporterId,
-			Coordinate location, int key, long time, int urgency) {
+			URL[] pictureUrls, Coordinate location, int key, long time,
+			int urgency) {
 		this.title = title;
 		this.description = description;
 		this.reporterId = reporterId;
+		this.pictureUrls = pictureUrls;
 		this.location = location;
 		this.key = key;
 		this.time = time;
@@ -45,6 +50,14 @@ public class Issue {
 
 	public void setReporterId(String reporterId) {
 		this.reporterId = reporterId;
+	}
+
+	public URL[] getPictureUrls() {
+		return pictureUrls;
+	}
+
+	public void setPictureUrls(URL[] pictureUrls) {
+		this.pictureUrls = pictureUrls;
 	}
 
 	public Coordinate getLocation() {
