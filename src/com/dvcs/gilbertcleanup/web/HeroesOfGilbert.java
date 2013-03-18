@@ -39,6 +39,7 @@ public class HeroesOfGilbert {
 		try {
 			issueJson = getJSONArray(ROUTE_ISSUES);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return null;
 		}
 
@@ -54,7 +55,7 @@ public class HeroesOfGilbert {
 					pictures[j] = new URL(picturesJson.getString(j));
 				}
 
-				JSONObject locationJson = obj.getJSONObject("location");
+				JSONObject locationJson = obj.optJSONObject("location");
 				Coordinate location = locationJson == null ? null
 						: new Coordinate(locationJson.getDouble("lat"),
 								locationJson.getDouble("lon"));
@@ -65,8 +66,10 @@ public class HeroesOfGilbert {
 						obj.getInt("key"), obj.getLong("time"),
 						obj.getInt("urgency"));
 			} catch (JSONException e) {
+				e.printStackTrace();
 				return null;
 			} catch (MalformedURLException e) {
+				e.printStackTrace();
 				return null;
 			}
 
