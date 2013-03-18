@@ -1,9 +1,11 @@
 package com.dvcs.gilbertcleanup;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
+import com.dvcs.gilbertcleanup.web.HeroesOfGilbert;
 
 /**
  * An activity representing a list of Issues. This activity
@@ -21,61 +23,91 @@ import android.support.v4.app.FragmentActivity;
  * {@link IssueListFragment.Callbacks} interface
  * to listen for item selections.
  */
-public class IssueListActivity extends FragmentActivity
-        implements IssueListFragment.Callbacks {
+public class IssueListActivity extends FragmentActivity implements
+		IssueListFragment.Callbacks {
 
-    /**
-     * Whether or not the activity is in two-pane mode, i.e. running on a tablet
-     * device.
-     */
-    private boolean mTwoPane;
+	/**
+	 * A list of issues as fetched by {@link GetIssuesTask}.
+	 */
+	private Issue[] issues;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_issue_list);
+	/**
+	 * Whether or not the activity is in two-pane mode, i.e. running on a tablet
+	 * device.
+	 */
+	private boolean mTwoPane;
 
-        if (findViewById(R.id.issue_detail_container) != null) {
-            // The detail container view will be present only in the
-            // large-screen layouts (res/values-large and
-            // res/values-sw600dp). If this view is present, then the
-            // activity should be in two-pane mode.
-            mTwoPane = true;
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 
-            // In two-pane mode, list items should be given the
-            // 'activated' state when touched.
-            ((IssueListFragment) getSupportFragmentManager()
-                    .findFragmentById(R.id.issue_list))
-                    .setActivateOnItemClick(true);
-        }
+		// Fetch the issues
+		new GetIssuesTask().execute();
 
-        // TODO: If exposing deep links into your app, handle intents here.
-    }
+		setContentView(R.layout.activity_issue_list);
 
-    /**
-     * Callback method from {@link IssueListFragment.Callbacks}
-     * indicating that the item with the given ID was selected.
-     */
-    @Override
-    public void onItemSelected(String id) {
-        if (mTwoPane) {
-            // In two-pane mode, show the detail view in this activity by
-            // adding or replacing the detail fragment using a
-            // fragment transaction.
-            Bundle arguments = new Bundle();
-            arguments.putString(IssueDetailFragment.ARG_ITEM_ID, id);
-            IssueDetailFragment fragment = new IssueDetailFragment();
-            fragment.setArguments(arguments);
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.issue_detail_container, fragment)
-                    .commit();
+		if ( findViewById(R.id.issue_detail_container) != null ) {
+			// The detail container view will be present only in the
+			// large-screen layouts (res/values-large and
+			// res/values-sw600dp). If this view is present, then the
+			// activity should be in two-pane mode.
+			mTwoPane = true;
 
-        } else {
-            // In single-pane mode, simply start the detail activity
-            // for the selected item ID.
-            Intent detailIntent = new Intent(this, IssueDetailActivity.class);
-            detailIntent.putExtra(IssueDetailFragment.ARG_ITEM_ID, id);
-            startActivity(detailIntent);
-        }
-    }
+			// In two-pane mode, list items should be given the
+			// 'activated' state when touched.
+			((IssueListFragment) getSupportFragmentManager().findFragmentById(
+					R.id.issue_list)).setActivateOnItemClick(true);
+		}
+
+		// TODO: If exposing deep links into your app, handle intents here.
+	}
+
+	/**
+	 * Callback method from {@link IssueListFragment.Callbacks} indicating that
+	 * the item with the given ID was selected.
+	 */
+	@Override
+	public void onItemSelected(String id) {
+		if ( mTwoPane ) {
+			// In two-pane mode, show the detail view in this activity by
+			// adding or replacing the detail fragment using a
+			// fragment transaction.
+			Bundle arguments = new Bundle();
+			arguments.putString(IssueDetailFragment.ARG_ITEM_ID, id);
+			IssueDetailFragment fragment = new IssueDetailFragment();
+			fragment.setArguments(arguments);
+			getSupportFragmentManager().beginTransaction()
+					.replace(R.id.issue_detail_container, fragment).commit();
+
+		} else {
+			// In single-pane mode, simply start the detail activity
+			// for the selected item ID.
+			Intent detailIntent = new Intent(this, IssueDetailActivity.class);
+			detailIntent.putExtra(IssueDetailFragment.ARG_ITEM_ID, id);
+			startActivity(detailIntent);
+		}
+	}
+
+	public Issue[] getIssues() {
+		return issues;
+	}
+
+	public void setIssues(Issue[] issues) {
+		this.issues = issues;
+
+		// Notify our fragment of the change.
+		IssueListFragment f = (IssueListFragment) getSupportFragmentManager()
+				.findFragmentById(R.id.issue_list);
+		f.onIssuesLoaded(issues);
+	}
+
+	private class GetIssuesTask extends AsyncTask<Void, Void, Issue[]> {
+		protected Issue[] doInBackground(Void... _) {
+			return HeroesOfGilbert.getIssues();
+		}
+
+		protected void onPostExecute(Issue[] issues) {
+			setIssues(issues);
+		}
+	}
 }
