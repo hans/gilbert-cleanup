@@ -6,5 +6,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_issue_list">Issues</string>
     <string name="title_issue_detail">Issue Detail</string>
+    <string name="title_activity_report">ReportActivity</string>
 
 </resources>

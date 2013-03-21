@@ -24,6 +24,7 @@
             android:label="@string/title_issue_list" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -34,6 +35,14 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".IssueListActivity" />
+        </activity>
+        <activity
+            android:name="com.dvcs.gilbertcleanup.ReportActivity"
+            android:label="@string/title_activity_report"
+            android:parentActivityName="com.dvcs.gilbertcleanup.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dvcs.gilbertcleanup.MainActivity" />
         </activity>
     </application>
 
