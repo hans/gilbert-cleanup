@@ -15,10 +15,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="Take a picture" />
+        android:text="Take a picture"
+        android:onClick="launchCamera" />
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -28,7 +29,7 @@
     </EditText>
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.22"
@@ -50,26 +51,26 @@
             android:text="Urgency:" />
 
         <RadioGroup
-            android:id="@+id/radioGroup1"
+            android:id="@+id/urgency"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
 
             <RadioButton
-                android:id="@+id/radio0"
+                android:id="@+id/urgencyLow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
                 android:text="Low" />
 
             <RadioButton
-                android:id="@+id/radio1"
+                android:id="@+id/urgencyMedium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Medium" />
 
             <RadioButton
-                android:id="@+id/radio2"
+                android:id="@+id/urgencyHigh"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="High" />
@@ -81,6 +82,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="Submit" />
+        android:text="Submit"
+        android:onClick="submitForm" />
 
 </LinearLayout>

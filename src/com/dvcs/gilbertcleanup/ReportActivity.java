@@ -1,12 +1,24 @@
 package com.dvcs.gilbertcleanup;
 
-import android.os.Bundle;
+import java.util.ArrayList;
+
 import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.support.v4.app.NavUtils;
+import android.view.View;
+import android.widget.RadioGroup;
+import android.widget.TextView;
 
 public class ReportActivity extends Activity {
+
+	private static final int CAMERA_REQUEST_CODE = 1;
+
+	ArrayList<Bitmap> pictures;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -14,6 +26,8 @@ public class ReportActivity extends Activity {
 		setContentView(R.layout.activity_report);
 		// Show the Up button in the action bar.
 		setupActionBar();
+
+		pictures = new ArrayList<Bitmap>();
 	}
 
 	/**
@@ -47,6 +61,41 @@ public class ReportActivity extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	public void launchCamera(View v) {
+		Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE);
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int responseCode,
+			Intent data) {
+		if ( requestCode == CAMERA_REQUEST_CODE ) {
+			pictures.add((Bitmap) data.getExtras().get("data"));
+		}
+	}
+
+	public void submitForm(View v) {
+		String title = ((TextView) findViewById(R.id.title)).getText()
+				.toString();
+		String description = ((TextView) findViewById(R.id.description))
+				.getText().toString();
+
+		int urgency = 0;
+		int urgencyId = ((RadioGroup) findViewById(R.id.urgency))
+				.getCheckedRadioButtonId();
+		switch ( urgencyId ) {
+		case R.id.urgencyLow:
+			urgency = 0;
+			break;
+		case R.id.urgencyMedium:
+			urgency = 1;
+			break;
+		case R.id.urgencyHigh:
+			urgency = 2;
+			break;
+		}
 	}
 
 }
