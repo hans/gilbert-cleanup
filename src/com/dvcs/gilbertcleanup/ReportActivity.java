@@ -3,8 +3,10 @@ package com.dvcs.gilbertcleanup;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.NavUtils;
@@ -13,6 +15,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+
+import com.dvcs.gilbertcleanup.web.HeroesOfGilbert;
 
 public class ReportActivity extends Activity {
 
@@ -95,6 +99,27 @@ public class ReportActivity extends Activity {
 		case R.id.urgencyHigh:
 			urgency = 2;
 			break;
+		}
+
+	}
+
+	/**
+	 * Task which submits a new issue.
+	 * 
+	 * The parameters of this task are expected in this order:
+	 * 
+	 * - Context ctx - String title - String description - int urgency -
+	 * Bitmap[] pictures
+	 */
+	private class AddIssueTask extends AsyncTask<Object, Void, Void> {
+		protected Void doInBackground(Object... params) {
+			assert params.length == 5;
+
+			HeroesOfGilbert.submitIssue((Context) params[0],
+					(String) params[1], (String) params[2], (Integer) params[3],
+					(Bitmap[]) params[4]);
+
+			return null;
 		}
 	}
 
