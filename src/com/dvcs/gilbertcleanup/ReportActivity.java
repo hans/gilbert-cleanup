@@ -101,6 +101,8 @@ public class ReportActivity extends Activity {
 			break;
 		}
 
+		new AddIssueTask().execute(this, title, description, urgency,
+				pictures.toArray(new Bitmap[] { }));
 	}
 
 	/**
@@ -116,8 +118,8 @@ public class ReportActivity extends Activity {
 			assert params.length == 5;
 
 			HeroesOfGilbert.submitIssue((Context) params[0],
-					(String) params[1], (String) params[2], (Integer) params[3],
-					(Bitmap[]) params[4]);
+					(String) params[1], (String) params[2],
+					(Integer) params[3], (Bitmap[]) params[4]);
 
 			return null;
 		}

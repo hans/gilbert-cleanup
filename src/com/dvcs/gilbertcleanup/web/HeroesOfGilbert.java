@@ -119,7 +119,7 @@ public class HeroesOfGilbert {
 
 				// TODO relies on the fact that we compress to PNG in previous
 				// step
-				entity.addPart("picture[]", new ByteArrayBody(pictureBytes,
+				entity.addPart("pictures[]", new ByteArrayBody(pictureBytes,
 						"bam" + i + ".png"));
 
 				i++;
