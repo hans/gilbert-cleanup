@@ -9,5 +9,6 @@
 			<attribute name="javadoc_location" value="http://tsusiatsoftware.net/jts/javadoc/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="libs/httpmime-4.2.3.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
