@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.dvcs.gilbertcleanup.dummy.DummyContent;
+import com.dvcs.gilbertcleanup.neighborhoods.NeighborhoodUtil;
 
 /**
  * A list fragment representing a list of Issues. This fragment also supports
@@ -92,13 +93,27 @@ public class IssueListFragment extends ListFragment {
 	public void onIssuesLoaded(Issue[] issues) {
 		ArrayList<String> listItems_Title = new ArrayList<String>();
 		for ( int i = 0; i < issues.length; i++ ) {
-			listItems_Title.add(issues[0].toString());
+			listItems_Title.add(issues[i].getTitle());
 		}
+		
+//		NeighborhoodUtil neighborhood = new NeighborhoodUtil(this.getActivity());
+//		
+//		ArrayList<String> listItems_Neighborhood = new ArrayList<String>();
+//		for ( int i = 0; i < issues.length; i++ ) {
+//			listItems_Title.add(neighborhood.findNeighborhoodForCoordinate(issues[i].getLocation()).getName());
+//		}
 
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+		ArrayAdapter<String> adapter_Title = new ArrayAdapter<String>(getActivity(),
 				android.R.layout.simple_list_item_activated_1,
 				android.R.id.text1, listItems_Title);
-		setListAdapter(adapter);
+		
+		setListAdapter(adapter_Title);
+		
+//		ArrayAdapter<String> adapter_Neighborhood = new ArrayAdapter<String>(getActivity(),
+//				android.R.layout.simple_list_item_activated_2,
+//				android.R.id.text2, listItems_Neighborhood);
+//
+//		setListAdapter(adapter_Neighborhood);
 	}
 
 	@Override
