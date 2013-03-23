@@ -58,8 +58,6 @@ public class IssueDetailFragment extends Fragment {
         if (mItem != null) {
         	
             ((TextView) rootView.findViewById(R.id.issue_detail)).setText(mItem.getDescription());
-            ((ProgressBar) rootView.findViewById(R.id.treyRulez2)).setMax(100);
-            ((ProgressBar) rootView.findViewById(R.id.treyRulez2)).setProgress(50);
         }
         else
         {

@@ -91,29 +91,36 @@ public class IssueListFragment extends ListFragment {
 	 * fetched.
 	 */
 	public void onIssuesLoaded(Issue[] issues) {
-		ArrayList<String> listItems_Title = new ArrayList<String>();
-		for ( int i = 0; i < issues.length; i++ ) {
-			listItems_Title.add(issues[i].getTitle());
-		}
-		
-//		NeighborhoodUtil neighborhood = new NeighborhoodUtil(this.getActivity());
-//		
-//		ArrayList<String> listItems_Neighborhood = new ArrayList<String>();
-//		for ( int i = 0; i < issues.length; i++ ) {
-//			listItems_Title.add(neighborhood.findNeighborhoodForCoordinate(issues[i].getLocation()).getName());
-//		}
+		// ArrayList<String> listItems_Title = new ArrayList<String>();
+		// for ( int i = 0; i < issues.length; i++ ) {
+		// listItems_Title.add(issues[i].getTitle());
+		// }
 
-		ArrayAdapter<String> adapter_Title = new ArrayAdapter<String>(getActivity(),
-				android.R.layout.simple_list_item_activated_1,
-				android.R.id.text1, listItems_Title);
-		
-		setListAdapter(adapter_Title);
-		
-//		ArrayAdapter<String> adapter_Neighborhood = new ArrayAdapter<String>(getActivity(),
-//				android.R.layout.simple_list_item_activated_2,
-//				android.R.id.text2, listItems_Neighborhood);
-//
-//		setListAdapter(adapter_Neighborhood);
+		NeighborhoodUtil neighborhood = new NeighborhoodUtil(this.getActivity());
+
+		ArrayList<String> listItems_Neighborhood = new ArrayList<String>();
+		for ( int i = 0; i < issues.length; i++ ) {
+			if ( issues[i].getLocation() == null ) {
+				listItems_Neighborhood.add("");
+			} else {
+				listItems_Neighborhood.add(neighborhood
+						.findNeighborhoodForCoordinate(issues[i].getLocation())
+						.getName());
+			}
+		}
+
+		// ArrayAdapter<String> adapter_Title = new
+		// ArrayAdapter<String>(getActivity(),
+		// android.R.layout.simple_list_item_activated_1,
+		// android.R.id.text1, listItems_Title);
+		//
+		// setListAdapter(adapter_Title);
+
+		ArrayAdapter<String> adapter_Neighborhood = new ArrayAdapter<String>(
+				getActivity(), android.R.layout.simple_list_item_activated_2,
+				android.R.id.text2, listItems_Neighborhood);
+
+		setListAdapter(adapter_Neighborhood);
 	}
 
 	@Override
