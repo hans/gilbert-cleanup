@@ -94,6 +94,7 @@ public class IssueListActivity extends FragmentActivity implements
 
 	public void setIssues(Issue[] issues) {
 		this.issues = issues;
+		IssueContainer.issues = issues;
 
 		// Notify our fragment of the change.
 		IssueListFragment f = (IssueListFragment) getSupportFragmentManager()
