@@ -5,9 +5,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
-
-import com.dvcs.gilbertcleanup.dummy.DummyContent;
 
 /**
  * A fragment representing a single Issue detail screen.
@@ -25,7 +24,7 @@ public class IssueDetailFragment extends Fragment {
     /**
      * The dummy content this fragment is presenting.
      */
-    private DummyContent.DummyItem mItem;
+    private Issue mItem;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -42,7 +41,11 @@ public class IssueDetailFragment extends Fragment {
             // Load the dummy content specified by the fragment
             // arguments. In a real-world scenario, use a Loader
             // to load content from a content provider.
-            mItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
+        	int index = Integer.parseInt(getArguments().getString(ARG_ITEM_ID));
+        	index --;
+            //mItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
+        	System.out.println(IssueContainer.issues[index].getDescription());
+        	mItem = IssueContainer.issues[index];
         }
     }
 
@@ -53,7 +56,12 @@ public class IssueDetailFragment extends Fragment {
 
         // Show the dummy content as text in a TextView.
         if (mItem != null) {
-            ((TextView) rootView.findViewById(R.id.issue_detail)).setText(mItem.content);
+        	
+            ((TextView) rootView.findViewById(R.id.issue_detail)).setText(mItem.getDescription());
+        }
+        else
+        {
+        	((TextView) rootView.findViewById(R.id.issue_detail)).setText("Content is null");
         }
 
         return rootView;
