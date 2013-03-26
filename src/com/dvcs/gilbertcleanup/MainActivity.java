@@ -1,8 +1,10 @@
 package com.dvcs.gilbertcleanup;
 
-import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
 
 public class MainActivity extends Activity {
 
@@ -19,4 +21,14 @@ public class MainActivity extends Activity {
 		return true;
 	}
 
+	public void openReportActivity(View v) {
+		Intent i = new Intent(this, ReportActivity.class);
+		startActivity(i);
+	}
+	
+	public void openBrowseActivity(View v) {
+		Intent i = new Intent(this, IssueListActivity.class);
+		startActivity(i);
+	}
+	
 }

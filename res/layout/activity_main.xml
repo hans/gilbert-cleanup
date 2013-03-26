@@ -8,9 +8,23 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
 
-    <TextView
+    <Button
+        android:id="@+id/reportButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="Report"
+        android:onClick="openReportActivity" />
+
+    <Button
+        android:id="@+id/browseButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/reportButton"
+        android:layout_alignBottom="@+id/reportButton"
+        android:layout_toRightOf="@+id/reportButton"
+        android:text="Browse"
+        android:onClick="openBrowseActivity" />
 
 </RelativeLayout>
