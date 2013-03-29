@@ -37,7 +37,7 @@ import com.vividsolutions.jts.geom.Coordinate;
 
 public class HeroesOfGilbert {
 
-	private static final String ENDPOINT_URL = "http://heroes-of-gilbert.appspot.com/";
+	private static final String ENDPOINT_URL = "http://heroes-of-gilbert.herokuapp.com/";
 
 	private static final String ROUTE_ISSUES = "issues";
 	private static final String ROUTE_ISSUE_ADD = "issues/add";
@@ -51,7 +51,8 @@ public class HeroesOfGilbert {
 	public static Issue[] getIssues() {
 		JSONArray issueJson = null;
 		try {
-			issueJson = getJSONArray(ROUTE_ISSUES);
+			JSONObject apiRet = getJSONObject(ROUTE_ISSUES);
+			issueJson = apiRet.getJSONArray("issues");
 		} catch ( Exception e ) {
 			e.printStackTrace();
 			return null;
