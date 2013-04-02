@@ -20,7 +20,7 @@ private Context context;
 
     public CustomIssueList(Context ctx, int viewResourceId, Issue[] data) {
 
-    super(ctx, viewResourceId,data);
+    super(ctx, viewResourceId, data);
     this.context =ctx;
     mInflater = (LayoutInflater)ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     mViewResourceId = viewResourceId;

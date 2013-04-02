@@ -1,16 +1,15 @@
 package com.dvcs.gilbertcleanup;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.dvcs.gilbertcleanup.dummy.DummyContent;
-import com.dvcs.gilbertcleanup.neighborhoods.NeighborhoodUtil;
 
 /**
  * A list fragment representing a list of Issues. This fragment also supports
@@ -105,7 +104,7 @@ public class IssueListFragment extends ListFragment {
 
 		CustomIssueList adapter = new CustomIssueList(
 				getActivity(), R.layout.custom_issue_row, issues);
-
+		Log.e("IssueListFragment", Arrays.toString(issues));
 		setListAdapter(adapter);
 	}
 
