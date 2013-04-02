@@ -63,7 +63,7 @@ private Context context;
 	
 	TextView dateText = (TextView) rowView.findViewById(R.id.date);
 	
-	dateText.setText(new java.util.Date(your_data[position].getTime() * 1000).toString());
+	dateText.setText(new RelativeTime(new java.util.Date(your_data[position].getTime() * 1000)).getRelativeTime());
    
     return rowView;  
 }

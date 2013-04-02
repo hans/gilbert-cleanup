@@ -32,6 +32,8 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.telephony.TelephonyManager;
 
+import com.dvcs.gilbertcleanup.Comment;
+import com.dvcs.gilbertcleanup.CommentAuthor;
 import com.dvcs.gilbertcleanup.Issue;
 import com.vividsolutions.jts.geom.Coordinate;
 
@@ -92,6 +94,41 @@ public class HeroesOfGilbert {
 		}
 
 		return ret;
+	}
+	
+	/**
+	 * Get list of comments for given Issue
+	 */
+	public static Comment[] getIssueComments(Issue issue) {
+		JSONArray commentJson = null;
+		try {
+			JSONObject apiRet = getJSONObject(ROUTE_ISSUES + "/" + issue.getKey());
+			commentJson = apiRet.getJSONArray("comments");
+		} catch ( Exception e ) {
+			e.printStackTrace();
+			return null;
+		}
+		
+		Comment[] comments = new Comment[commentJson.length()];
+		for(int i = 0; i < comments.length; i++) {
+			Comment comment = null;
+			
+			try {
+				JSONObject obj = commentJson.getJSONObject(i);
+				JSONObject comAuth = obj.getJSONObject("author");
+				CommentAuthor commentAuthor = new CommentAuthor(comAuth.getString("username"), comAuth.getInt("key"));
+				comment = new Comment(commentAuthor, obj.getString("text"),
+						  obj.getLong("time"),
+						  obj.getInt("key"),
+						  obj.getInt("issue"));
+			}
+			catch (JSONException e ) {
+				e.printStackTrace();
+				return null;
+			}
+			comments[i] = comment;
+		}
+		return comments;
 	}
 
 	/**
