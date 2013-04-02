@@ -11,12 +11,15 @@ import java.io.Writer;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.mime.HttpMultipartMode;
@@ -24,6 +27,7 @@ import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.ByteArrayBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -43,6 +47,7 @@ public class HeroesOfGilbert {
 
 	private static final String ROUTE_ISSUES = "issues";
 	private static final String ROUTE_ISSUE_ADD = "issues/add";
+	private static final String ROUTE_ISSUE_STATUS = "issues/%i/status";
 
 	/**
 	 * Get a list of recent issues.
@@ -176,6 +181,22 @@ public class HeroesOfGilbert {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * Update an issue's status.
+	 */
+	public void updateIssueStatus(int issueKey, int status) {
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("status", String.valueOf(status)));
+		
+		String route = String.format(ROUTE_ISSUE_ADD, issueKey);
+		
+		try {
+			post(route, params);
+		} catch ( IOException e ) { 
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * Send a GET request to an API endpoint.
@@ -223,6 +244,31 @@ public class HeroesOfGilbert {
 			JSONException {
 		String response = get(route);
 		return new JSONArray(response);
+	}
+	
+	/**
+	 * Send a POST request to an API endpoint.
+	 * 
+	 * @param route
+	 *            Route to the endpoint (without leading or trailing slash)
+	 * @param params
+	 * @return Response string, or null if the request failed
+	 */
+	private static String post(String route, List<NameValuePair> params)
+			throws IOException {
+		HttpClient client = new DefaultHttpClient();
+		HttpPost post = new HttpPost(ENDPOINT_URL + route);
+		post.setEntity(new UrlEncodedFormEntity(params));
+
+		HttpResponse response = client.execute(post);
+		HttpEntity responseEntity = response.getEntity();
+
+		if ( responseEntity == null )
+			return null;
+
+		String responseString = convertStreamToString(responseEntity
+				.getContent());
+		return responseString;
 	}
 
 	private static String getDeviceGUID(Context ctx) {
