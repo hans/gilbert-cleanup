@@ -6,6 +6,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -80,6 +83,14 @@ public class ReportActivity extends Activity {
 		}
 	}
 
+	private Location getLocation() {
+		LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+		String provider = lm.getBestProvider(new Criteria(), false);
+		Location ret = lm.getLastKnownLocation(provider);
+		
+		return ret;
+	}
+
 	public void submitForm(View v) {
 		String title = ((TextView) findViewById(R.id.title)).getText()
 				.toString();
@@ -102,7 +113,7 @@ public class ReportActivity extends Activity {
 		}
 
 		new AddIssueTask().execute(this, title, description, urgency,
-				pictures.toArray(new Bitmap[] { }));
+				pictures.toArray(new Bitmap[] {}), getLocation());
 	}
 
 	/**
@@ -111,7 +122,7 @@ public class ReportActivity extends Activity {
 	 * The parameters of this task are expected in this order:
 	 * 
 	 * - Context ctx - String title - String description - int urgency -
-	 * Bitmap[] pictures
+	 * Bitmap[] pictures - Location location
 	 */
 	private class AddIssueTask extends AsyncTask<Object, Void, Void> {
 		protected Void doInBackground(Object... params) {
@@ -119,7 +130,8 @@ public class ReportActivity extends Activity {
 
 			HeroesOfGilbert.submitIssue((Context) params[0],
 					(String) params[1], (String) params[2],
-					(Integer) params[3], (Bitmap[]) params[4]);
+					(Integer) params[3], (Bitmap[]) params[4],
+					(Location) params[5]);
 
 			return null;
 		}

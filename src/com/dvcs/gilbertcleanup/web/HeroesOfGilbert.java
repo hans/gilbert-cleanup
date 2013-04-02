@@ -34,6 +34,7 @@ import org.json.JSONObject;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.location.Location;
 import android.telephony.TelephonyManager;
 
 import com.dvcs.gilbertcleanup.Comment;
@@ -140,7 +141,8 @@ public class HeroesOfGilbert {
 	 * Submit a new issue.
 	 */
 	public static void submitIssue(Context ctx, String title,
-			String description, int urgency, Bitmap[] pictures) {
+			String description, int urgency, Bitmap[] pictures,
+			Location location) {
 		String guid = getDeviceGUID(ctx);
 
 		final SimpleDateFormat sdf = new SimpleDateFormat(
@@ -174,6 +176,13 @@ public class HeroesOfGilbert {
 			entity.addPart("title", new StringBody(title));
 			entity.addPart("description", new StringBody(description));
 			entity.addPart("urgency", new StringBody(String.valueOf(urgency)));
+
+			if ( location != null ) {
+				entity.addPart("location_lat",
+						new StringBody(String.valueOf(location.getLatitude())));
+				entity.addPart("location_lon",
+						new StringBody(String.valueOf(location.getLongitude())));
+			}
 
 			post.setEntity(entity);
 			client.execute(post);
