@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
 
+import com.dvcs.gilbertcleanup.models.Issue;
 import com.dvcs.gilbertcleanup.web.HeroesOfGilbert;
 
 /**

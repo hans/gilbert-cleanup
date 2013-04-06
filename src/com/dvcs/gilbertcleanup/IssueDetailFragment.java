@@ -12,6 +12,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.dvcs.gilbertcleanup.models.ExtendedIssue;
+import com.dvcs.gilbertcleanup.models.Issue;
+import com.dvcs.gilbertcleanup.web.HeroesOfGilbert;
 
 /**
  * A fragment representing a single Issue detail screen. This fragment is either
@@ -61,12 +66,30 @@ public class IssueDetailFragment extends Fragment {
 			Bundle savedInstanceState) {
 		rootView = inflater.inflate(R.layout.fragment_issue_detail, container,
 				false);
+		
+		new FetchSingleIssueTask().execute(mItem.getKey());
 
 		// Show the dummy content as text in a TextView.
 		URL[] pictureUrls = mItem.getPictureUrls();
 		new FetchIssueImageTask().execute(pictureUrls);
+		
+		((TextView) rootView.findViewById(R.id.issue_title)).setText(mItem.getTitle());
 
 		return rootView;
+	}
+	
+	private class FetchSingleIssueTask extends AsyncTask<Integer, Void, ExtendedIssue> {
+		@Override
+		protected ExtendedIssue doInBackground(Integer... ids) {
+			assert ids.length == 1;
+			
+			return HeroesOfGilbert.getIssue(ids[0]);
+		}
+		
+		@Override
+		public void onPostExecute(ExtendedIssue issue) {
+			// TODO: populate comments, etc.
+		}
 	}
 
 	private class FetchIssueImageTask extends AsyncTask<URL, Void, Drawable[]> {

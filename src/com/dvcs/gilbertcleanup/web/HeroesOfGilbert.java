@@ -102,39 +102,91 @@ public class HeroesOfGilbert {
 
 		return ret;
 	}
-	
+
 	/**
-	 * Get list of comments for given Issue
+	 * Get detailed information about the given issue.
+	 * 
+	 * @return An object describing the issue with the corresponding key, or
+	 *         `null` if such an issue could not be found.
 	 */
-	public static Comment[] getIssueComments(Issue issue) {
-		JSONArray commentJson = null;
+	public static ExtendedIssue getIssue(int key) {
+		JSONObject issueJson = null;
 		try {
-			JSONObject apiRet = getJSONObject(ROUTE_ISSUES + "/" + issue.getKey());
-			commentJson = apiRet.getJSONArray("comments");
+			JSONObject apiRet = getJSONObject(ROUTE_ISSUES + "/" + key);
+			issueJson = apiRet.getJSONObject("issue");
 		} catch ( Exception e ) {
 			e.printStackTrace();
 			return null;
 		}
-		
+
+		Comment[] comments = getCommentsFromIssueJson(issueJson);
+		if ( comments == null )
+			return null;
+
+		ExtendedIssue issue;
+		try {
+			JSONObject userJson = issueJson.getJSONObject("reporter");
+			User user = new User(userJson.getInt("key"),
+					userJson.getInt("status"), userJson.getString("username"),
+					null);
+
+			JSONArray picturesJson = issueJson.getJSONArray("pictures");
+			URL[] pictures = new URL[picturesJson.length()];
+			for ( int j = 0; j < pictures.length; j++ ) {
+				pictures[j] = new URL(picturesJson.getString(j));
+			}
+
+			JSONObject locationJson = issueJson.optJSONObject("location");
+			Coordinate location = locationJson == null ? null : new Coordinate(
+					locationJson.getDouble("lat"),
+					locationJson.getDouble("lon"));
+
+			issue = new ExtendedIssue(issueJson.getString("title"),
+					issueJson.getString("description"), user, pictures,
+					location, issueJson.getInt("key"),
+					issueJson.getLong("time"), issueJson.getInt("urgency"),
+					comments);
+		} catch ( JSONException e ) {
+			e.printStackTrace();
+			return null;
+		} catch ( MalformedURLException e ) {
+			e.printStackTrace();
+			return null;
+		}
+
+		return issue;
+	}
+
+	private static Comment[] getCommentsFromIssueJson(JSONObject issueJson) {
+		JSONArray commentJson;
+		try {
+			commentJson = issueJson.getJSONArray("comments");
+		} catch ( JSONException e ) {
+			e.printStackTrace();
+			return null;
+		}
+
 		Comment[] comments = new Comment[commentJson.length()];
-		for(int i = 0; i < comments.length; i++) {
+		for ( int i = 0; i < comments.length; i++ ) {
 			Comment comment = null;
-			
+
 			try {
 				JSONObject obj = commentJson.getJSONObject(i);
 				JSONObject comAuth = obj.getJSONObject("author");
-				CommentAuthor commentAuthor = new CommentAuthor(comAuth.getString("username"), comAuth.getInt("key"));
+				User commentAuthor = new User(comAuth.getInt("key"),
+						comAuth.getInt("status"),
+						comAuth.getString("username"), null);
+
 				comment = new Comment(commentAuthor, obj.getString("text"),
-						  obj.getLong("time"),
-						  obj.getInt("key"),
-						  obj.getInt("issue"));
-			}
-			catch (JSONException e ) {
+						obj.getLong("time"), obj.getInt("key"),
+						obj.getInt("issue"));
+			} catch ( JSONException e ) {
 				e.printStackTrace();
 				return null;
 			}
 			comments[i] = comment;
 		}
+
 		return comments;
 	}
 
