@@ -37,9 +37,10 @@ import android.graphics.Bitmap;
 import android.location.Location;
 import android.telephony.TelephonyManager;
 
-import com.dvcs.gilbertcleanup.Comment;
-import com.dvcs.gilbertcleanup.CommentAuthor;
-import com.dvcs.gilbertcleanup.Issue;
+import com.dvcs.gilbertcleanup.models.Comment;
+import com.dvcs.gilbertcleanup.models.ExtendedIssue;
+import com.dvcs.gilbertcleanup.models.Issue;
+import com.dvcs.gilbertcleanup.models.User;
 import com.vividsolutions.jts.geom.Coordinate;
 
 public class HeroesOfGilbert {
@@ -190,19 +191,19 @@ public class HeroesOfGilbert {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Update an issue's status.
 	 */
 	public void updateIssueStatus(int issueKey, int status) {
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("status", String.valueOf(status)));
-		
+
 		String route = String.format(ROUTE_ISSUE_ADD, issueKey);
-		
+
 		try {
 			post(route, params);
-		} catch ( IOException e ) { 
+		} catch ( IOException e ) {
 			e.printStackTrace();
 		}
 	}
@@ -254,7 +255,7 @@ public class HeroesOfGilbert {
 		String response = get(route);
 		return new JSONArray(response);
 	}
-	
+
 	/**
 	 * Send a POST request to an API endpoint.
 	 * 
