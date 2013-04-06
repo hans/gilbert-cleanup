@@ -1,33 +1,41 @@
 package com.dvcs.gilbertcleanup.models;
 
+import com.dvcs.gilbertcleanup.CommentAuthor;
+
 public class Comment {
-
-	private User author;
-	private int key;
-	private int time;
-	private String text;
 	
-	public Comment(User author, int key, int time, String text) {
+	private CommentAuthor author;
+	private String text;
+	private long time;
+	private int key;
+	private int issueKey;
+	
+	public Comment(CommentAuthor author, String text, long time, int key, int issueKey) {
 		this.author = author;
-		this.key = key;
-		this.time = time;
 		this.text = text;
+		this.time = time;
+		this.key = key;
+		this.issueKey = issueKey;
 	}
-
-	public User getAuthor() {
+	
+	public CommentAuthor getAuthor() {
 		return author;
 	}
-
-	public int getKey() {
-		return key;
-	}
-
-	public int getTime() {
-		return time;
-	}
-
+	
 	public String getText() {
 		return text;
 	}
-
+	
+	public long getTime() {
+		return time;
+	}
+	
+	public int getKey() {
+		return key;
+	}
+	
+	public int getIssueKey() {
+		return issueKey;
+	}
+	
 }
