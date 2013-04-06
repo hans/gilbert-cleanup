@@ -1,4 +1,4 @@
-package com.dvcs.gilbertcleanup;
+package com.dvcs.gilbertcleanup.models;
 
 import java.net.URL;
 
