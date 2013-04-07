@@ -1,14 +1,15 @@
-package com.dvcs.gilbertcleanup;
+package com.dvcs.gilbertcleanup.models;
+
 
 public class Comment {
 	
-	private CommentAuthor author;
+	private User author;
 	private String text;
 	private long time;
 	private int key;
 	private int issueKey;
 	
-	public Comment(CommentAuthor author, String text, long time, int key, int issueKey) {
+	public Comment(User author, String text, long time, int key, int issueKey) {
 		this.author = author;
 		this.text = text;
 		this.time = time;
@@ -16,7 +17,7 @@ public class Comment {
 		this.issueKey = issueKey;
 	}
 	
-	public CommentAuthor getAuthor() {
+	public User getAuthor() {
 		return author;
 	}
 	

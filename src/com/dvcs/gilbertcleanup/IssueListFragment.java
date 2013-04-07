@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ListView;
 
 import com.dvcs.gilbertcleanup.dummy.DummyContent;
+import com.dvcs.gilbertcleanup.models.Issue;
 
 /**
  * A list fragment representing a list of Issues. This fragment also supports
