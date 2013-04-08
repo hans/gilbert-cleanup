@@ -74,6 +74,7 @@ public class IssueDetailFragment extends Fragment {
 		new FetchIssueImageTask().execute(pictureUrls);
 		
 		((TextView) rootView.findViewById(R.id.issue_title)).setText(mItem.getTitle());
+		((TextView) rootView.findViewById(R.id.issue_description)).setText(mItem.getDescription());
 
 		return rootView;
 	}
