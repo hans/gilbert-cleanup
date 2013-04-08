@@ -23,4 +23,12 @@ public class ExtendedIssue extends Issue {
 		this.comments = comments;
 	}
 
+	public User getReporter() {
+		return reporter;
+	}
+
+	public Comment[] getComments() {
+		return comments;
+	}
+
 }
