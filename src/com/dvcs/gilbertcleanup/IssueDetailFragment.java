@@ -12,8 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.dvcs.gilbertcleanup.models.Comment;
 import com.dvcs.gilbertcleanup.models.ExtendedIssue;
 import com.dvcs.gilbertcleanup.models.Issue;
 import com.dvcs.gilbertcleanup.web.HeroesOfGilbert;
@@ -66,30 +68,43 @@ public class IssueDetailFragment extends Fragment {
 			Bundle savedInstanceState) {
 		rootView = inflater.inflate(R.layout.fragment_issue_detail, container,
 				false);
-		
+
 		new FetchSingleIssueTask().execute(mItem.getKey());
 
 		// Show the dummy content as text in a TextView.
 		URL[] pictureUrls = mItem.getPictureUrls();
 		new FetchIssueImageTask().execute(pictureUrls);
-		
-		((TextView) rootView.findViewById(R.id.issue_title)).setText(mItem.getTitle());
-		((TextView) rootView.findViewById(R.id.issue_description)).setText(mItem.getDescription());
+
+		((TextView) rootView.findViewById(R.id.issue_title)).setText(mItem
+				.getTitle());
+		((TextView) rootView.findViewById(R.id.issue_description))
+				.setText(mItem.getDescription());
 
 		return rootView;
 	}
-	
-	private class FetchSingleIssueTask extends AsyncTask<Integer, Void, ExtendedIssue> {
+
+	private class FetchSingleIssueTask extends
+			AsyncTask<Integer, Void, ExtendedIssue> {
 		@Override
 		protected ExtendedIssue doInBackground(Integer... ids) {
 			assert ids.length == 1;
-			
+
 			return HeroesOfGilbert.getIssue(ids[0]);
 		}
-		
+
 		@Override
 		public void onPostExecute(ExtendedIssue issue) {
-			// TODO: populate comments, etc.
+			Comment[] comments = issue.getComments();
+
+			ListView lv = (ListView) rootView
+					.findViewById(R.id.issue_comments_list);
+			lv.setAdapter(new CommentListAdapter(getActivity(),
+					R.layout.custom_comment_row, comments));
+
+			String countStr = comments.length + " comment"
+					+ (comments.length == 1 ? "" : "s");
+			((TextView) rootView.findViewById(R.id.issue_comment_count))
+					.setText(countStr);
 		}
 	}
 

@@ -1,62 +1,95 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/treyRulez"
+    android:id="@+id/scroll_view"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="10dp" >
+    android:layout_height="match_parent" >
 
     <RelativeLayout
-        android:id="@+id/layout1"
-        android:background="@drawable/bordered_layout"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:padding="3dp" >
+        android:id="@+id/treyRulez"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp" >
 
-        <ImageView
-            android:id="@+id/issue_image"
+        <RelativeLayout
+            android:id="@+id/layout1"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/bordered_layout"
+            android:padding="3dp" >
+
+            <ImageView
+                android:id="@+id/issue_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:adjustViewBounds="true"
+                android:maxHeight="100dp"
+                android:maxWidth="100dp"
+                android:src="@drawable/ic_launcher" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/issue_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:adjustViewBounds="true"
-            android:maxHeight="100dp"
-            android:maxWidth="100dp"
-            android:src="@drawable/ic_launcher" />
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/layout1"
+            android:layout_marginLeft="14dp"
+            android:layout_toRightOf="@+id/layout1"
+            android:text="Title"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/issue_byline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/issue_description"
+            android:layout_alignLeft="@+id/issue_title"
+            android:layout_alignRight="@+id/issue_title"
+            android:layout_below="@+id/issue_title"
+            android:text="Submitted by %s on %s"
+            android:textColor="@android:color/tertiary_text_light" />
+
+        <TextView
+            android:id="@+id/issue_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/layout1"
+            android:layout_alignRight="@+id/issue_title"
+            android:layout_below="@+id/layout1"
+            android:layout_marginTop="16dp"
+            android:text="" />
+
+        <View
+            android:id="@+id/horiz1"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/issue_description"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:background="#cccccc" />
+        
+        <TextView
+            android:id="@+id/issue_comment_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/issue_description"
+            android:layout_below="@+id/horiz1"
+            android:text="%i comments"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <ListView
+            android:id="@+id/issue_comments_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/issue_description"
+            android:layout_below="@+id/issue_comment_count" >
+        </ListView>
+
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/issue_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/layout1"
-        android:layout_marginLeft="14dp"
-        android:layout_toRightOf="@+id/layout1"
-        android:text="Title"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/issue_byline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/issue_description"
-        android:layout_alignLeft="@+id/issue_title"
-        android:layout_alignRight="@+id/issue_title"
-        android:layout_below="@+id/issue_title"
-        android:text="Submitted by %s on %s"
-        android:textColor="@android:color/tertiary_text_light" />
-
-    <TextView
-        android:id="@+id/issue_description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/layout1"
-        android:layout_alignRight="@+id/issue_title"
-        android:layout_below="@+id/layout1"
-        android:layout_marginTop="16dp"
-        android:text="" />
-
-</RelativeLayout>
+</ScrollView>
