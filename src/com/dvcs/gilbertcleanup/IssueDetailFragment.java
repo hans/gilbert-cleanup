@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -133,6 +134,9 @@ public class IssueDetailFragment extends Fragment {
 		protected void onPostExecute(Drawable[] drawables) {
 			if ( drawables.length == 0 )
 				return;
+
+			Gallery gallery = (Gallery) rootView
+					.findViewById(R.id.issue_gallery);
 
 			ImageView iv = (ImageView) rootView.findViewById(R.id.issue_image);
 			Drawable d = drawables[0];
