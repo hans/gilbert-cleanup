@@ -2,15 +2,16 @@ package com.dvcs.gilbertcleanup;
 
 import java.util.ArrayList;
 
+import com.dvcs.gilbertcleanup.models.Issue;
+import com.dvcs.gilbertcleanup.neighborhoods.NeighborhoodUtil;
+
+import android.app.AlertDialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-
-import com.dvcs.gilbertcleanup.models.Issue;
-import com.dvcs.gilbertcleanup.neighborhoods.NeighborhoodUtil;
 
 public class CustomIssueList extends ArrayAdapter<Issue> {
 
@@ -46,6 +47,7 @@ private Context context;
 
 @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
+	
 	View rowView = mInflater.inflate(R.layout.custom_issue_row, null);// you are inflating your xml layout
 	TextView neighborhoodText = (TextView) rowView.findViewById(R.id.neighborhood);//find a textview in your layout, of course you can add whatever you want such as ImaveView Buttons ....
 	//text.setText(listItems_Neighborhood.toString()); // and set text from your_data

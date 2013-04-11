@@ -3,6 +3,7 @@ package com.dvcs.gilbertcleanup;
 import java.util.Arrays;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
@@ -91,22 +92,20 @@ public class IssueListFragment extends ListFragment {
 	 * fetched.
 	 */
 	public void onIssuesLoaded(Issue[] issues) {
-//		 ArrayList<String> listItems_Title = new ArrayList<String>();
-//		 for ( int i = 0; i < issues.length; i++ ) {
-//		 listItems_Title.add(issues[i].getTitle());
-//		 }
-
-		// ArrayAdapter<String> adapter_Title = new
-		// ArrayAdapter<String>(getActivity(),
-		// android.R.layout.simple_list_item_activated_1,
-		// android.R.id.text1, listItems_Title);
-		//
-		// setListAdapter(adapter_Title);
-
-		CustomIssueList adapter = new CustomIssueList(
-				getActivity(), R.layout.custom_issue_row, issues);
-		Log.e("IssueListFragment", Arrays.toString(issues));
-		setListAdapter(adapter);
+		if (issues == null){
+			AlertDialog ad = new AlertDialog.Builder(getActivity()).create();  
+			ad.setCancelable(true); 
+			ad.setMessage("Cannot find issues. Please check internet connection and try again."); 
+			ad.show();
+			
+		} else {
+			CustomIssueList adapter = new CustomIssueList(
+					getActivity(), R.layout.custom_issue_row, issues);
+			Log.e("IssueListFragment", Arrays.toString(issues));
+			setListAdapter(adapter);
+		}
+			
+		
 	}
 
 	@Override
