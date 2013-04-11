@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
+import android.view.View;
+
+import com.sqisland.android.swipe_image_viewer.SwipeImageViewerActivity;
 
 /**
  * An activity representing a single Issue detail screen. This
@@ -64,4 +67,9 @@ public class IssueDetailActivity extends FragmentActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+    
+    public void onImageClick(View v) {
+		Intent i = new Intent(this, SwipeImageViewerActivity.class);
+		startActivity(i);
+	}
 }

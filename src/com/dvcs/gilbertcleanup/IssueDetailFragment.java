@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import com.dvcs.gilbertcleanup.models.Comment;
 import com.dvcs.gilbertcleanup.models.ExtendedIssue;
 import com.dvcs.gilbertcleanup.models.Issue;
 import com.dvcs.gilbertcleanup.web.HeroesOfGilbert;
+import com.sqisland.android.swipe_image_viewer.SwipeImageViewerActivity;
 
 /**
  * A fragment representing a single Issue detail screen. This fragment is either

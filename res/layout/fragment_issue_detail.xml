@@ -18,7 +18,8 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:background="@drawable/bordered_layout"
-            android:padding="3dp" >
+            android:padding="3dp"
+            android:onClick="onImageClick" >
 
             <ImageView
                 android:id="@+id/issue_image"
@@ -84,7 +85,7 @@
             android:layout_width="fill_parent"
             android:layout_height="1dp"
             android:layout_below="@+id/issue_gallery"
-            android:layuot_marginTop="15dp"
+            android:layout_marginTop="15dp"
             android:background="#cccccc" />
         
         <TextView
