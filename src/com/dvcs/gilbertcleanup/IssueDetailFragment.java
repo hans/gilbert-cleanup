@@ -85,6 +85,11 @@ public class IssueDetailFragment extends Fragment {
 
 		return rootView;
 	}
+	
+	@Override
+	public void onDestroy() {
+		IssueDetailActivity.pictures = null;
+	}
 
 	private class FetchSingleIssueTask extends
 			AsyncTask<Integer, Void, ExtendedIssue> {
@@ -134,11 +139,10 @@ public class IssueDetailFragment extends Fragment {
 
 		@Override
 		protected void onPostExecute(Drawable[] drawables) {
+			IssueDetailActivity.pictures = drawables;
+			
 			if ( drawables.length == 0 )
 				return;
-
-			Gallery gallery = (Gallery) rootView
-					.findViewById(R.id.issue_gallery);
 
 			ImageView iv = (ImageView) rootView.findViewById(R.id.issue_image);
 			Drawable d = drawables[0];
