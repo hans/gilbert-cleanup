@@ -66,34 +66,19 @@
             android:text="" />
 
         <View
-            android:id="@+id/horiz1"
+            android:id="@+id/horiz"
             android:layout_width="fill_parent"
             android:layout_height="1dp"
             android:layout_below="@+id/issue_description"
             android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
-            android:background="#cccccc" />
-
-        <Gallery
-            android:id="@+id/issue_gallery"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/horiz1" />
-
-        <View
-            android:id="@+id/horiz2"
-            android:layout_width="fill_parent"
-            android:layout_height="1dp"
-            android:layout_below="@+id/issue_gallery"
-            android:layout_marginTop="15dp"
-            android:background="#cccccc" />
+            android:background="#ccc" />
         
         <TextView
             android:id="@+id/issue_comment_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/issue_description"
-            android:layout_below="@+id/horiz2"
+            android:layout_below="@+id/horiz"
             android:text="%i comments"
             android:textStyle="bold" />
 

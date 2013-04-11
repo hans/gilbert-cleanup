@@ -89,6 +89,8 @@ public class IssueDetailFragment extends Fragment {
 	@Override
 	public void onDestroy() {
 		IssueDetailActivity.pictures = null;
+		
+		super.onDestroy();
 	}
 
 	private class FetchSingleIssueTask extends
