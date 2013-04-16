@@ -7,6 +7,7 @@ import com.dvcs.gilbertcleanup.neighborhoods.NeighborhoodUtil;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,6 +68,17 @@ private Context context;
 	TextView dateText = (TextView) rowView.findViewById(R.id.date);
 	
 	dateText.setText(new RelativeTime(new java.util.Date(your_data[position].getTime() * 1000)).getRelativeTime());
+	
+	TextView urgencyText = (TextView) rowView.findViewById(R.id.urgency);
+	
+	if (your_data[position].getUrgency() == 0) 
+		urgencyText.setText("Urgency: Low");
+	else if (your_data[position].getUrgency() == 1)
+		urgencyText.setText("Urgency: Medium");
+	else if (your_data[position].getUrgency() == 2)
+		urgencyText.setText("Urgency: High");
+	else
+		urgencyText.setText("No urgency found");
    
     return rowView;  
 }
