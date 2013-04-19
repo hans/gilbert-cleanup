@@ -82,7 +82,16 @@ public class ReportActivity extends Activity {
 	protected void onActivityResult(int requestCode, int responseCode,
 			Intent data) {
 		if ( requestCode == CAMERA_REQUEST_CODE ) {
-			pictures.add((Bitmap) data.getExtras().get("data"));
+			Bundle extras = data.getExtras();
+			
+			// May be null if no picture was taken
+			if ( extras == null )
+				return;
+			
+			Bitmap picture = (Bitmap) extras.get("data");
+			
+			if ( picture != null )
+				pictures.add(picture);
 		}
 	}
 
