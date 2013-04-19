@@ -83,7 +83,7 @@ public class IssueDetailActivity extends FragmentActivity {
 	public void onViewLocation(View v) {
 		IssueDetailFragment fragment = (IssueDetailFragment) getSupportFragmentManager()
 				.findFragmentById(R.id.issue_detail_container);
-		
+		fragment.viewLocation();
 	}
 
 	public void onImageClick(View v) {

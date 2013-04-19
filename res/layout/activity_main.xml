@@ -25,24 +25,24 @@
         android:layout_centerHorizontal="true" >
 
         <Button
-            android:id="@+id/browseButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/reportButton"
-            android:layout_alignBottom="@+id/reportButton"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="58dp"
-            android:onClick="openBrowseActivity"
-            android:text="Browse" />
-
-        <Button
             android:id="@+id/reportButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_toLeftOf="@+id/browseButton"
+            android:layout_alignBaseline="@+id/browseButton"
+            android:layout_alignBottom="@+id/browseButton"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="58dp"
             android:onClick="openReportActivity"
             android:text="Report" />
+
+        <Button
+            android:id="@+id/browseButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_toLeftOf="@+id/reportButton"
+            android:onClick="openBrowseActivity"
+            android:text="Browse" />
     </LinearLayout>
 
     <TextView

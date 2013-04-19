@@ -3,9 +3,11 @@ package com.dvcs.gilbertcleanup;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -13,6 +15,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,10 +62,17 @@ public class IssueDetailFragment extends Fragment {
 		new SubmitCommentTask().execute(getActivity(), mItem.getKey(), txt);
 	}
 	public void viewLocation() {
-		NeighborhoodUtil neighborhood = new NeighborhoodUtil(getActivity());
-		String uri = String.format(Locale.ENGLISH, "geo:%f,%f", neighborhood.findNeighborhoodForCoordinate(mItem.getLocation()));
-		Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
-		getActivity().startActivity(intent);
+		if (mItem.getLocation() == null){
+			AlertDialog ad = new AlertDialog.Builder(getActivity()).create();  
+			ad.setCancelable(true); 
+			ad.setMessage("No location submitted."); 
+			ad.show();
+			
+		} else {
+			String uri = String.format(Locale.ENGLISH, "geo:%f,%f", mItem.getLocation());
+			Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+			getActivity().startActivity(intent);
+		}
 	}
 
 	@Override
