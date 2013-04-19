@@ -3,8 +3,8 @@ package com.dvcs.gilbertcleanup;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.Date;
 
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -12,7 +12,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -21,7 +20,6 @@ import com.dvcs.gilbertcleanup.models.Comment;
 import com.dvcs.gilbertcleanup.models.ExtendedIssue;
 import com.dvcs.gilbertcleanup.models.Issue;
 import com.dvcs.gilbertcleanup.web.HeroesOfGilbert;
-import com.sqisland.android.swipe_image_viewer.SwipeImageViewerActivity;
 
 /**
  * A fragment representing a single Issue detail screen. This fragment is either
@@ -78,6 +76,17 @@ public class IssueDetailFragment extends Fragment {
 		URL[] pictureUrls = mItem.getPictureUrls();
 		new FetchIssueImageTask().execute(pictureUrls);
 
+		String authorName = "Anonymous"; // TODO
+
+		TextView byline = (TextView) rootView.findViewById(R.id.issue_byline);
+		byline.setText(String.format(
+				(String) byline.getText(),
+				new Object[] {
+						authorName,
+						new RelativeTime(new Date(mItem.getTime() * 1000))
+								.getRelativeTime()
+				}));
+
 		((TextView) rootView.findViewById(R.id.issue_title)).setText(mItem
 				.getTitle());
 		((TextView) rootView.findViewById(R.id.issue_description))
@@ -85,11 +94,11 @@ public class IssueDetailFragment extends Fragment {
 
 		return rootView;
 	}
-	
+
 	@Override
 	public void onDestroy() {
 		IssueDetailActivity.pictures = null;
-		
+
 		super.onDestroy();
 	}
 
@@ -142,7 +151,7 @@ public class IssueDetailFragment extends Fragment {
 		@Override
 		protected void onPostExecute(Drawable[] drawables) {
 			IssueDetailActivity.pictures = drawables;
-			
+
 			if ( drawables.length == 0 )
 				return;
 
