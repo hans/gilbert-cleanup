@@ -11,20 +11,19 @@ import com.dvcs.gilbertcleanup.models.Issue;
 import com.dvcs.gilbertcleanup.web.HeroesOfGilbert;
 
 /**
- * An activity representing a list of Issues. This activity
- * has different presentations for handset and tablet-size devices. On
- * handsets, the activity presents a list of items, which when touched,
- * lead to a {@link IssueDetailActivity} representing
- * item details. On tablets, the activity presents the list of items and
- * item details side-by-side using two vertical panes.
+ * An activity representing a list of Issues. This activity has different
+ * presentations for handset and tablet-size devices. On handsets, the activity
+ * presents a list of items, which when touched, lead to a
+ * {@link IssueDetailActivity} representing item details. On tablets, the
+ * activity presents the list of items and item details side-by-side using two
+ * vertical panes.
  * <p>
  * The activity makes heavy use of fragments. The list of items is a
- * {@link IssueListFragment} and the item details
- * (if present) is a {@link IssueDetailFragment}.
+ * {@link IssueListFragment} and the item details (if present) is a
+ * {@link IssueDetailFragment}.
  * <p>
  * This activity also implements the required
- * {@link IssueListFragment.Callbacks} interface
- * to listen for item selections.
+ * {@link IssueListFragment.Callbacks} interface to listen for item selections.
  */
 public class IssueListActivity extends FragmentActivity implements
 		IssueListFragment.Callbacks {
@@ -71,13 +70,14 @@ public class IssueListActivity extends FragmentActivity implements
 	 * the item with the given ID was selected.
 	 */
 	@Override
-	public void onItemSelected(String id) {
+	public void onIssueSelected(int issuePosition) {
 		if ( mTwoPane ) {
 			// In two-pane mode, show the detail view in this activity by
 			// adding or replacing the detail fragment using a
 			// fragment transaction.
 			Bundle arguments = new Bundle();
-			arguments.putString(IssueDetailFragment.ARG_ITEM_ID, id);
+			arguments.putInt(IssueDetailFragment.ARG_ITEM_POSITION,
+					issuePosition);
 			IssueDetailFragment fragment = new IssueDetailFragment();
 			fragment.setArguments(arguments);
 			getSupportFragmentManager().beginTransaction()
@@ -87,11 +87,12 @@ public class IssueListActivity extends FragmentActivity implements
 			// In single-pane mode, simply start the detail activity
 			// for the selected item ID.
 			Intent detailIntent = new Intent(this, IssueDetailActivity.class);
-			detailIntent.putExtra(IssueDetailFragment.ARG_ITEM_ID, id);
+			detailIntent.putExtra(IssueDetailFragment.ARG_ITEM_POSITION,
+					issuePosition);
 			startActivity(detailIntent);
 		}
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch ( item.getItemId() ) {

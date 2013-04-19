@@ -31,7 +31,7 @@ public class IssueDetailFragment extends Fragment {
 	 * The fragment argument representing the item ID that this fragment
 	 * represents.
 	 */
-	public static final String ARG_ITEM_ID = "item_id";
+	public static final String ARG_ITEM_POSITION = "item_position";
 
 	/**
 	 * The dummy content this fragment is presenting.
@@ -51,16 +51,9 @@ public class IssueDetailFragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		if ( getArguments().containsKey(ARG_ITEM_ID) ) {
-			// Load the dummy content specified by the fragment
-			// arguments. In a real-world scenario, use a Loader
-			// to load content from a content provider.
-			int index = Integer.parseInt(getArguments().getString(ARG_ITEM_ID));
-			index--;
-			// mItem =
-			// DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
-			System.out.println(IssueContainer.issues[index].getDescription());
-			mItem = IssueContainer.issues[index];
+		if ( getArguments().containsKey(ARG_ITEM_POSITION) ) {
+			int position = getArguments().getInt(ARG_ITEM_POSITION);
+			mItem = IssueContainer.issues[position];
 		}
 	}
 

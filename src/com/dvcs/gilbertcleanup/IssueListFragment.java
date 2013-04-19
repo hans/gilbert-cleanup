@@ -50,7 +50,7 @@ public class IssueListFragment extends ListFragment {
 		/**
 		 * Callback for when an item has been selected.
 		 */
-		public void onItemSelected(String id);
+		public void onIssueSelected(int position);
 	}
 
 	/**
@@ -59,7 +59,7 @@ public class IssueListFragment extends ListFragment {
 	 */
 	private static Callbacks sDummyCallbacks = new Callbacks() {
 		@Override
-		public void onItemSelected(String id) {
+		public void onIssueSelected(int position) {
 		}
 	};
 
@@ -133,10 +133,10 @@ public class IssueListFragment extends ListFragment {
 	public void onListItemClick(ListView listView, View view, int position,
 			long id) {
 		super.onListItemClick(listView, view, position, id);
-
+		
 		// Notify the active callbacks interface (the activity, if the
 		// fragment is attached to one) that an item has been selected.
-		mCallbacks.onItemSelected(DummyContent.ITEMS.get(position).id);
+		mCallbacks.onIssueSelected(position);
 	}
 
 	@Override
