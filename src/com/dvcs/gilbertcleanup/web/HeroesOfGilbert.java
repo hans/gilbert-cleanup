@@ -82,8 +82,8 @@ public class HeroesOfGilbert {
 
 				JSONObject locationJson = obj.optJSONObject("location");
 				Coordinate location = locationJson == null ? null
-						: new Coordinate(locationJson.getDouble("lat"),
-								locationJson.getDouble("lon"));
+						: new Coordinate(locationJson.getDouble("lon"),
+								locationJson.getDouble("lat"));
 
 				issue = new Issue(obj.getString("title"),
 						obj.getString("description"),
@@ -139,8 +139,8 @@ public class HeroesOfGilbert {
 
 			JSONObject locationJson = issueJson.optJSONObject("location");
 			Coordinate location = locationJson == null ? null : new Coordinate(
-					locationJson.getDouble("lat"),
-					locationJson.getDouble("lon"));
+					locationJson.getDouble("lon"),
+					locationJson.getDouble("lat"));
 
 			issue = new ExtendedIssue(issueJson.getString("title"),
 					issueJson.getString("description"), user, pictures,
