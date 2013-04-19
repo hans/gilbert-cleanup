@@ -138,7 +138,12 @@ public class ReportActivity extends Activity {
 		}
 
 		protected void onPostExecute(Boolean result) {
-			if ( !result.booleanValue() ) {
+			if ( result.booleanValue() ) {
+				MessageDialog
+						.show(ReportActivity.this,
+								R.drawable.superhero_success,
+								"You submitted an issue! Thanks for making Gilbert a better place.");
+			} else {
 				MessageDialog
 						.show(ReportActivity.this,
 								R.drawable.superhero_helpful,
