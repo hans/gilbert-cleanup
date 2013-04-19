@@ -119,20 +119,6 @@ public class ReportActivity extends Activity {
 				pictures.toArray(new Bitmap[] {}), getLocation());
 	}
 
-	private void showError(int errorImage, String errorMessage) {
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		LayoutInflater factory = LayoutInflater.from(this);
-		final View errorView = factory.inflate(R.layout.error, null);
-
-		((ImageView) errorView.findViewById(R.id.errorImage))
-				.setImageResource(errorImage);
-		((TextView) errorView.findViewById(R.id.errorText))
-				.setText(errorMessage);
-
-		builder.setView(errorView);
-		builder.show();
-	}
-
 	/**
 	 * Task which submits a new issue.
 	 * 
@@ -153,8 +139,10 @@ public class ReportActivity extends Activity {
 
 		protected void onPostExecute(Boolean result) {
 			if ( !result.booleanValue() ) {
-				showError(R.drawable.superhero_helpful,
-						"The issue submission failed. Are you connected to the Internet?");
+				MessageDialog
+						.show(ReportActivity.this,
+								R.drawable.superhero_helpful,
+								"The issue submission failed. Are you connected to the Internet?");
 			}
 		}
 	}
