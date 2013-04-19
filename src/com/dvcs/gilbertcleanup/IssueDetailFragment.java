@@ -4,9 +4,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Date;
+import java.util.Locale;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -21,6 +24,7 @@ import android.widget.TextView;
 import com.dvcs.gilbertcleanup.models.Comment;
 import com.dvcs.gilbertcleanup.models.ExtendedIssue;
 import com.dvcs.gilbertcleanup.models.Issue;
+import com.dvcs.gilbertcleanup.neighborhoods.NeighborhoodUtil;
 import com.dvcs.gilbertcleanup.web.HeroesOfGilbert;
 
 /**
@@ -53,6 +57,12 @@ public class IssueDetailFragment extends Fragment {
 		String txt = ((EditText) rootView.findViewById(R.id.editText1))
 				.getText().toString();
 		new SubmitCommentTask().execute(getActivity(), mItem.getKey(), txt);
+	}
+	public void viewLocation() {
+		NeighborhoodUtil neighborhood = new NeighborhoodUtil(getActivity());
+		String uri = String.format(Locale.ENGLISH, "geo:%f,%f", neighborhood.findNeighborhoodForCoordinate(mItem.getLocation()));
+		Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+		getActivity().startActivity(intent);
 	}
 
 	@Override

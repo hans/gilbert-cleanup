@@ -79,6 +79,12 @@ public class IssueDetailActivity extends FragmentActivity {
 				.findFragmentById(R.id.issue_detail_container);
 		fragment.submitComment();
 	}
+	
+	public void onViewLocation(View v) {
+		IssueDetailFragment fragment = (IssueDetailFragment) getSupportFragmentManager()
+				.findFragmentById(R.id.issue_detail_container);
+		
+	}
 
 	public void onImageClick(View v) {
 		Intent i = new Intent(this, SwipeImageViewerActivity.class);
