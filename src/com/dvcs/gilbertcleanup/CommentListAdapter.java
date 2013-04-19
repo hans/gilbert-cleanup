@@ -54,7 +54,8 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 		Comment comment = getItem(position);
 
 		String username = comment.getAuthor().getUsername();
-		username = username == null ? "Anonymous" : username;
+		username = username == null || username.equals("null") ? "Anonymous"
+				: username;
 		((TextView) rowView.findViewById(R.id.comment_author))
 				.setText(username);
 
