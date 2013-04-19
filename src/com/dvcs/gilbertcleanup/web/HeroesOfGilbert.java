@@ -194,7 +194,7 @@ public class HeroesOfGilbert {
 	/**
 	 * Submit a new issue.
 	 */
-	public static void submitIssue(Context ctx, String title,
+	public static boolean submitIssue(Context ctx, String title,
 			String description, int urgency, Bitmap[] pictures,
 			Location location) {
 		String guid = getDeviceGUID(ctx);
@@ -242,7 +242,10 @@ public class HeroesOfGilbert {
 			client.execute(post);
 		} catch ( Exception e ) {
 			e.printStackTrace();
+			return false;
 		}
+		
+		return true;
 	}
 	
 	/**

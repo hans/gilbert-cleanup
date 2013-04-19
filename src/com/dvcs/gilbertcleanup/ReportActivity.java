@@ -3,6 +3,7 @@ package com.dvcs.gilbertcleanup;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -13,9 +14,11 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.NavUtils;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -87,7 +90,7 @@ public class ReportActivity extends Activity {
 		LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 		String provider = lm.getBestProvider(new Criteria(), false);
 		Location ret = lm.getLastKnownLocation(provider);
-		
+
 		return ret;
 	}
 
@@ -116,6 +119,20 @@ public class ReportActivity extends Activity {
 				pictures.toArray(new Bitmap[] {}), getLocation());
 	}
 
+	private void showError(int errorImage, String errorMessage) {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		LayoutInflater factory = LayoutInflater.from(this);
+		final View errorView = factory.inflate(R.layout.error, null);
+
+		((ImageView) errorView.findViewById(R.id.errorImage))
+				.setImageResource(errorImage);
+		((TextView) errorView.findViewById(R.id.errorText))
+				.setText(errorMessage);
+
+		builder.setView(errorView);
+		builder.show();
+	}
+
 	/**
 	 * Task which submits a new issue.
 	 * 
@@ -124,16 +141,21 @@ public class ReportActivity extends Activity {
 	 * - Context ctx - String title - String description - int urgency -
 	 * Bitmap[] pictures - Location location
 	 */
-	private class AddIssueTask extends AsyncTask<Object, Void, Void> {
-		protected Void doInBackground(Object... params) {
+	private class AddIssueTask extends AsyncTask<Object, Void, Boolean> {
+		protected Boolean doInBackground(Object... params) {
 			assert params.length == 5;
 
-			HeroesOfGilbert.submitIssue((Context) params[0],
+			return HeroesOfGilbert.submitIssue((Context) params[0],
 					(String) params[1], (String) params[2],
 					(Integer) params[3], (Bitmap[]) params[4],
 					(Location) params[5]);
+		}
 
-			return null;
+		protected void onPostExecute(Boolean result) {
+			if ( !result.booleanValue() ) {
+				showError(R.drawable.superhero_helpful,
+						"The issue submission failed. Are you connected to the Internet?");
+			}
 		}
 	}
 
