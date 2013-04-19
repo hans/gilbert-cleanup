@@ -8,23 +8,52 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
 
-    <Button
-        android:id="@+id/reportButton"
+    <ImageView
+        android:id="@+id/imageView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:text="Report"
-        android:onClick="openReportActivity" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/superhero_woot" />
 
-    <Button
-        android:id="@+id/browseButton"
+    <LinearLayout
+        android:id="@+id/buttons"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/reportButton"
-        android:layout_alignBottom="@+id/reportButton"
-        android:layout_toRightOf="@+id/reportButton"
-        android:text="Browse"
-        android:onClick="openBrowseActivity" />
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" >
+
+        <Button
+            android:id="@+id/browseButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/reportButton"
+            android:layout_alignBottom="@+id/reportButton"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="58dp"
+            android:onClick="openBrowseActivity"
+            android:text="Browse" />
+
+        <Button
+            android:id="@+id/reportButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_toLeftOf="@+id/browseButton"
+            android:onClick="openReportActivity"
+            android:text="Report" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="46dp"
+        android:gravity="center"
+        android:text="Welcome, hero! Do you have an issue to report, or would you like to browse existing issues which still need to be fixed?"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>
