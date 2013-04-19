@@ -176,10 +176,18 @@ public class IssueDetailFragment extends Fragment {
 			return HeroesOfGilbert.submitComment((Context) params[0],
 					(Integer) params[1], (String) params[2]);
 		}
-		
+
 		@Override
 		protected void onPostExecute(Boolean result) {
-			// TODO: Handle error
+			if ( result.booleanValue() ) {
+				MessageDialog.show(getActivity(), R.drawable.superhero_smug,
+						"Your comment was accepted. Thanks!");
+			} else {
+				MessageDialog
+						.show(getActivity(),
+								R.drawable.superhero_helpful,
+								"Oops! Your comment couldn't be submitted. Check that you are connected to the Internet and try again.");
+			}
 		}
 	}
 }
