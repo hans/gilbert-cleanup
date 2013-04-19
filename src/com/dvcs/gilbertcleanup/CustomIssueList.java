@@ -62,8 +62,7 @@ public class CustomIssueList extends ArrayAdapter<Issue> {
 													// add whatever you want
 													// such as ImaveView Buttons
 													// ....
-		// text.setText(listItems_Neighborhood.toString()); // and set text from
-		// your_data
+		
 		NeighborhoodUtil neighborhood = new NeighborhoodUtil(this.getContext());
 		if (your_data[position].getLocation() == null) {
 			neighborhoodText.setText("Not available");
