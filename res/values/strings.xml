@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Gilbert Cleanup</string>
+    <string name="app_name">Heroes of Gilbert</string>
     <string name="action_settings">Settings</string>
     <string name="title_issue_list">Issues</string>
     <string name="title_issue_detail">Issue Detail</string>
