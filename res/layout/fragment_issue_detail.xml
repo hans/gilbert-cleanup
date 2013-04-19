@@ -45,17 +45,6 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/issue_byline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/issue_description"
-            android:layout_alignLeft="@+id/issue_title"
-            android:layout_alignRight="@+id/issue_title"
-            android:layout_below="@+id/issue_title"
-            android:text="Submitted by %s %s"
-            android:textColor="@android:color/tertiary_text_light" />
-
-        <TextView
             android:id="@+id/issue_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -109,6 +98,25 @@
             android:layout_centerHorizontal="true"
             android:onClick="onCommentActivity"
             android:text="Add Comment" />
+
+        <TextView
+            android:id="@+id/issue_byline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/issue_description"
+            android:layout_alignLeft="@+id/issue_title"
+            android:text="Submitted by %s %s"
+            android:textColor="@android:color/tertiary_text_light" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/issue_title"
+            android:layout_centerHorizontal="true"
+            android:onClick="onViewLocation"
+            android:text="View Location"
+            android:textSize="10dp" />
 
     </RelativeLayout>
 
