@@ -31,6 +31,12 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
 		this.comments = data;
 
 	}
+	
+	@Override
+	public boolean isEnabled(int position) {
+		// Disable all selection
+		return false;
+	}
 
 	@Override
 	public int getCount() {
