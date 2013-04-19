@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.Date;
 
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -45,6 +47,12 @@ public class IssueDetailFragment extends Fragment {
 	 * fragment (e.g. upon screen orientation changes).
 	 */
 	public IssueDetailFragment() {
+	}
+
+	public void submitComment() {
+		String txt = ((EditText) rootView.findViewById(R.id.editText1))
+				.getText().toString();
+		new SubmitCommentTask().execute(getActivity(), mItem.getKey(), txt);
 	}
 
 	@Override
@@ -94,8 +102,6 @@ public class IssueDetailFragment extends Fragment {
 
 		super.onDestroy();
 	}
-	
-	
 
 	private class FetchSingleIssueTask extends
 			AsyncTask<Integer, Void, ExtendedIssue> {
@@ -152,9 +158,28 @@ public class IssueDetailFragment extends Fragment {
 
 			ImageView iv = (ImageView) rootView.findViewById(R.id.issue_image);
 			Drawable d = drawables[0];
-			
+
 			if ( d != null )
 				iv.setImageDrawable(d);
+		}
+	}
+
+	/**
+	 * Parameters are equivalent to those of
+	 * {@link HeroesOfGilbert.submitComment}.
+	 */
+	private class SubmitCommentTask extends AsyncTask<Object, Void, Boolean> {
+		@Override
+		protected Boolean doInBackground(Object... params) {
+			assert params.length == 3;
+
+			return HeroesOfGilbert.submitComment((Context) params[0],
+					(Integer) params[1], (String) params[2]);
+		}
+		
+		@Override
+		protected void onPostExecute(Boolean result) {
+			// TODO: Handle error
 		}
 	}
 }

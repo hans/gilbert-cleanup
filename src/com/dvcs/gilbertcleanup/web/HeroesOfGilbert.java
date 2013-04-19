@@ -49,8 +49,8 @@ public class HeroesOfGilbert {
 
 	private static final String ROUTE_ISSUES = "issues";
 	private static final String ROUTE_ISSUE_ADD = "issues/add";
-	private static final String ROUTE_ISSUE_STATUS = "issues/%i/status";
-	private static final String ROUTE_ISSUE_COMMENT_ADD = "issues/%i/comment/add";
+	private static final String ROUTE_ISSUE_STATUS = "issues/%d/status";
+	private static final String ROUTE_ISSUE_COMMENT_ADD = "issues/%d/comment/add";
 
 	/**
 	 * Get a list of recent issues.
@@ -250,8 +250,9 @@ public class HeroesOfGilbert {
 	
 	/**
 	 * Submit comment to issue
+	 * @return 
 	 */
-	public static void submitComment(Context ctx, int issueKey, String text) {
+	public static boolean submitComment(Context ctx, int issueKey, String text) {
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		String guid = getDeviceGUID(ctx);
 		params.add(new BasicNameValuePair("author", guid));
@@ -263,8 +264,10 @@ public class HeroesOfGilbert {
 			post(route, params);
 		} catch( IOException e) {
 			e.printStackTrace();
+			return false;
 		}
 		
+		return true;
 	}
 
 	/**

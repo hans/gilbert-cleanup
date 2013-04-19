@@ -7,9 +7,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 
-import com.dvcs.gilbertcleanup.web.HeroesOfGilbert;
 import com.sqisland.android.swipe_image_viewer.SwipeImageViewerActivity;
 
 /**
@@ -75,12 +73,11 @@ public class IssueDetailActivity extends FragmentActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
-	public void onCommentActivity(View v)
-	{
-		int id = Integer.parseInt(getIntent().getStringExtra(IssueDetailFragment.ARG_ITEM_ID));
-		String txt = ((EditText)v.getRootView().findViewById(R.id.editText1)).getText().toString();
-		HeroesOfGilbert.submitComment(this.getApplicationContext(), id-1, txt);
+
+	public void onCommentActivity(View v) {
+		IssueDetailFragment fragment = (IssueDetailFragment) getSupportFragmentManager()
+				.findFragmentById(R.id.issue_detail_container);
+		fragment.submitComment();
 	}
 
 	public void onImageClick(View v) {
