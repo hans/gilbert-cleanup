@@ -51,11 +51,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.dvcs.gilbertcleanup.MainActivity" />
         </activity>
-        <activity
-            android:name="com.sqisland.android.swipe_image_viewer.SwipeImageViewerActivity">
+        <activity android:name="com.sqisland.android.swipe_image_viewer.SwipeImageViewerActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.dvcs.gilbertCleanup.IssueDetailActivity" />
+        </activity>
+        <activity
+            android:name="com.dvcs.gilbertcleanup.CommentActivity"
+            android:label="@string/title_activity_comment" >
         </activity>
     </application>
 

@@ -7,7 +7,7 @@
     <RelativeLayout
         android:id="@+id/treyRulez"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="357dp"
         android:orientation="vertical"
         android:padding="10dp" >
 
@@ -89,6 +89,26 @@
             android:layout_alignLeft="@+id/issue_description"
             android:layout_below="@+id/issue_comment_count" >
         </ListView>
+
+        <EditText
+            android:id="@+id/editText1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/issue_comments_list"
+            android:layout_centerHorizontal="true"
+            android:ems="10" >
+
+            <requestFocus />
+        </EditText>
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editText1"
+            android:layout_centerHorizontal="true"
+            android:onClick="onCommentActivity"
+            android:text="Add Comment" />
 
     </RelativeLayout>
 

@@ -27,6 +27,7 @@ import com.dvcs.gilbertcleanup.web.HeroesOfGilbert;
 public class ReportActivity extends Activity {
 
 	private static final int CAMERA_REQUEST_CODE = 1;
+	public static final String ARG_ITEM_ID = "item_id";
 
 	ArrayList<Bitmap> pictures;
 
