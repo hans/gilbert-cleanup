@@ -12,12 +12,20 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    
+    <instrumentation
+            android:name="android.test.InstrumentationTestRunner"
+            android:label="Main package tests"
+            android:targetPackage="com.dvcs.gilbertcleanup" />
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+        
+        <uses-library android:name="android.test.runner" />
+
         <activity
             android:name="com.dvcs.gilbertcleanup.MainActivity"
             android:label="@string/app_name" >
