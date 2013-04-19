@@ -92,6 +92,8 @@ public class IssueDetailFragment extends Fragment {
 		
 		super.onDestroy();
 	}
+	
+	
 
 	private class FetchSingleIssueTask extends
 			AsyncTask<Integer, Void, ExtendedIssue> {
@@ -148,7 +150,7 @@ public class IssueDetailFragment extends Fragment {
 
 			ImageView iv = (ImageView) rootView.findViewById(R.id.issue_image);
 			Drawable d = drawables[0];
-
+			
 			if ( d != null )
 				iv.setImageDrawable(d);
 		}
