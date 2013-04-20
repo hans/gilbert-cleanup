@@ -83,6 +83,10 @@ public class ReportActivity extends Activity {
 	protected void onActivityResult(int requestCode, int responseCode,
 			Intent data) {
 		if ( requestCode == CAMERA_REQUEST_CODE ) {
+			// May be null if no picture was taken
+			if ( data == null )
+				return;
+			
 			Bundle extras = data.getExtras();
 			
 			// May be null if no picture was taken
