@@ -45,7 +45,7 @@ import com.vividsolutions.jts.geom.Coordinate;
 
 public class HeroesOfGilbert {
 
-	private static final String ENDPOINT_URL = "http://heroes-of-gilbert.herokuapp.com/";
+	private static final String ENDPOINT_URL = "http://192.168.0.130:5000/";
 
 	private static final String ROUTE_ISSUES = "issues";
 	private static final String ROUTE_ISSUE_ADD = "issues/add";

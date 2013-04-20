@@ -3,6 +3,7 @@ package com.dvcs.gilbertcleanup;
 import java.util.ArrayList;
 
 import com.dvcs.gilbertcleanup.models.Issue;
+import com.dvcs.gilbertcleanup.neighborhoods.Neighborhood;
 import com.dvcs.gilbertcleanup.neighborhoods.NeighborhoodUtil;
 
 import android.app.AlertDialog;
@@ -20,6 +21,7 @@ public class CustomIssueList extends ArrayAdapter<Issue> {
 	private int mViewResourceId;
 	private Issue[] your_data;
 	private Context context;
+	NeighborhoodUtil neighborhood = new NeighborhoodUtil(this.getContext());
 
 	public CustomIssueList(Context ctx, int viewResourceId, Issue[] data) {
 
@@ -63,13 +65,13 @@ public class CustomIssueList extends ArrayAdapter<Issue> {
 													// such as ImaveView Buttons
 													// ....
 		
-		NeighborhoodUtil neighborhood = new NeighborhoodUtil(this.getContext());
 		if (your_data[position].getLocation() == null) {
 			neighborhoodText.setText("Not available");
 		} else {
-			neighborhoodText.setText(neighborhood
-					.findNeighborhoodForCoordinate(your_data[position]
-							.getLocation()).getName());
+			Neighborhood newNeighborhood = neighborhood.findNeighborhoodForCoordinate(your_data[position].getLocation());
+			if(newNeighborhood != null)
+				neighborhoodText.setText(newNeighborhood.getName());
+			else neighborhoodText.setText("Not available");
 		}
 
 		TextView titleText = (TextView) rowView.findViewById(R.id.title);// find
