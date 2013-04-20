@@ -74,7 +74,7 @@
         <ListView
             android:id="@+id/issue_comments_list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="150dp"
             android:layout_alignLeft="@+id/issue_description"
             android:layout_below="@+id/issue_comment_count" >
         </ListView>
