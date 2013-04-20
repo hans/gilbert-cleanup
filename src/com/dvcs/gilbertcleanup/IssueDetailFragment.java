@@ -3,7 +3,6 @@ package com.dvcs.gilbertcleanup;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
 
@@ -15,7 +14,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,8 +25,8 @@ import android.widget.TextView;
 import com.dvcs.gilbertcleanup.models.Comment;
 import com.dvcs.gilbertcleanup.models.ExtendedIssue;
 import com.dvcs.gilbertcleanup.models.Issue;
-import com.dvcs.gilbertcleanup.neighborhoods.NeighborhoodUtil;
 import com.dvcs.gilbertcleanup.web.HeroesOfGilbert;
+import com.vividsolutions.jts.geom.Coordinate;
 
 /**
  * A fragment representing a single Issue detail screen. This fragment is either
@@ -61,15 +59,18 @@ public class IssueDetailFragment extends Fragment {
 				.getText().toString();
 		new SubmitCommentTask().execute(getActivity(), mItem.getKey(), txt);
 	}
+
 	public void viewLocation() {
-		if (mItem.getLocation() == null){
-			AlertDialog ad = new AlertDialog.Builder(getActivity()).create();  
-			ad.setCancelable(true); 
-			ad.setMessage("No location submitted."); 
+		if ( mItem.getLocation() == null ) {
+			AlertDialog ad = new AlertDialog.Builder(getActivity()).create();
+			ad.setCancelable(true);
+			ad.setMessage("No location submitted.");
 			ad.show();
-			
+
 		} else {
-			String uri = String.format(Locale.ENGLISH, "geo:%f,%f", mItem.getLocation());
+			Coordinate loc = mItem.getLocation();
+			String uri = String.format(Locale.ENGLISH, "geo:%f,%f",
+					loc.y, loc.x);
 			Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
 			getActivity().startActivity(intent);
 		}
