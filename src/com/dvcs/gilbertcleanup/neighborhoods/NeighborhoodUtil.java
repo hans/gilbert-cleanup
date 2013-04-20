@@ -10,7 +10,6 @@ import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.vividsolutions.jts.geom.Coordinate;
 
@@ -49,32 +48,20 @@ public class NeighborhoodUtil {
 		if ( neighborhoods != null )
 			return neighborhoods;
 
-		Log.d("NeighborhoodUtil", "Beginning");
-
-		InputStream is = ctx.getAssets().open("gilbert_neighborhoods.kml");
+				InputStream is = ctx.getAssets().open("gilbert_neighborhoods.kml");
 
 		XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
 		XmlPullParser parser = factory.newPullParser();
 		parser.setInput(is, "UTF-8");
 
-		Log.d("NeighborhoodUtil", "About to begin parsing");
-
 		ArrayList<Neighborhood> neighborhoods = new ArrayList<Neighborhood>();
 		int eventType = parser.getEventType();
 		while ( eventType != XmlPullParser.END_DOCUMENT ) {
-			if ( eventType == XmlPullParser.START_DOCUMENT )
-				Log.d("NeighborhoodUtil", "getNeighborhoods: Start document");
-
 			if ( eventType == XmlPullParser.START_TAG ) {
-				Log.d("NeighborhoodUtil", "getNeighborhoods: Found a start tag");
-
 				if ( parser.getName().equals("Placemark") ) {
 					neighborhoods.add(readPlacemark(parser));
 				}
 			}
-
-			Log.d("NeighborhoodUtil",
-					"getNeighborhoods: Grabbing the next event");
 
 			eventType = parser.next();
 		}
@@ -95,15 +82,10 @@ public class NeighborhoodUtil {
 			if ( p.getEventType() == XmlPullParser.START_TAG ) {
 				String tagName = p.getName();
 				if ( tagName.equals("name") ) {
-					Log.d("NeighborhoodUtil", "Found name! Jumping in..");
 					name = readName(p);
 				} else if ( tagName.equals("outerBoundaryIs") ) {
-					Log.d("NeighborhoodUtil",
-							"Found outerBoundaryIs! Jumping in..");
 					outerBoundary = readBoundary(p);
 				} else if ( tagName.equals("innerBoundaryIs") ) {
-					Log.d("NeighborhoodUtil",
-							"Found innerBoundaryIs! Jumping in..");
 					innerBoundaries.add(readBoundary(p));
 				} else if ( tagName.equals("MultiGeometry")
 						|| tagName.equals("Polygon") ) {
@@ -111,14 +93,10 @@ public class NeighborhoodUtil {
 					// the tags we actually want
 					continue;
 				} else {
-					Log.d("NeighborhoodUtil", "Skipping <" + tagName
-							+ "> within a placemark..");
 					skip(p);
 				}
 			}
 		}
-
-		Log.d("NeighborhoodUtil", "Returning new neighborhood");
 
 		return new Neighborhood(name, outerBoundary, innerBoundaries);
 	}
