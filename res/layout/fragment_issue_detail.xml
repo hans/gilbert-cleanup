@@ -18,8 +18,8 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:background="@drawable/bordered_layout"
-            android:padding="3dp"
-            android:onClick="onImageClick" >
+            android:onClick="onImageClick"
+            android:padding="3dp" >
 
             <ImageView
                 android:id="@+id/issue_image"
@@ -48,7 +48,9 @@
             android:id="@+id/issue_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/issue_title"
+            android:layout_alignLeft="@+id/layout1"
+            android:layout_alignRight="@+id/issue_title"
+            android:layout_below="@+id/layout1"
             android:layout_marginTop="16dp"
             android:text="" />
 
@@ -59,7 +61,7 @@
             android:layout_below="@+id/issue_description"
             android:layout_marginTop="15dp"
             android:background="#ccc" />
-        
+
         <TextView
             android:id="@+id/issue_comment_count"
             android:layout_width="wrap_content"
@@ -72,7 +74,7 @@
         <ListView
             android:id="@+id/issue_comments_list"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/issue_description"
             android:layout_below="@+id/issue_comment_count" >
         </ListView>
@@ -97,27 +99,33 @@
             android:onClick="onCommentActivity"
             android:text="Add Comment" />
 
-        <Button
-            android:id="@+id/button2"
+        <LinearLayout
+            android:id="@+id/viewLocationLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
-            android:layout_below="@+id/issue_title"
-            android:layout_centerHorizontal="true"
-            android:onClick="onViewLocation"
-            android:text="View Location"
-            android:textSize="10dp" />
-
-        <TextView
-            android:id="@+id/issue_byline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/button2"
             android:layout_alignLeft="@+id/issue_title"
-            android:text="Submitted by %s %s"
-            android:textColor="@android:color/tertiary_text_light" />
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/issue_title"
+            android:layout_marginRight="10dp" >
 
+            <TextView
+                android:id="@+id/issue_byline"
+                android:layout_width="102dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:text="Submitted by %s %s"
+                android:textColor="@android:color/tertiary_text_light" />
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="73dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:onClick="onViewLocation"
+                android:text="View Location"
+                android:textSize="10dp" />
+
+        </LinearLayout>
     </RelativeLayout>
 
 </ScrollView>
