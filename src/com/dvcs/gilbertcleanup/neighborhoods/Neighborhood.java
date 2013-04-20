@@ -29,7 +29,7 @@ public class Neighborhood {
 		Log.d("Neighborhood", "Building a polygon with "
 				+ outerBoundaryCoords.length + " outer boundary coordinates");
 
-		this.name = name;
+		this.name = toTitleCase(name);
 		this.polygon = new Polygon(new LinearRing(new CoordinateArraySequence(
 				outerBoundaryCoords), gf), null, gf);
 	}
@@ -40,6 +40,26 @@ public class Neighborhood {
 
 	public String getName() {
 		return name;
+	}
+
+	public static String toTitleCase(String input) {
+		StringBuilder titleCase = new StringBuilder();
+		boolean nextTitleCase = true;
+
+		for ( char c : input.toCharArray() ) {
+			if ( Character.isSpaceChar(c) ) {
+				nextTitleCase = true;
+			} else if ( nextTitleCase ) {
+				c = Character.toTitleCase(c);
+				nextTitleCase = false;
+			} else {
+				c = Character.toLowerCase(c);
+			}
+
+			titleCase.append(c);
+		}
+
+		return titleCase.toString();
 	}
 
 }
